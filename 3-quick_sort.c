@@ -33,7 +33,6 @@ void quick_sorter(int *array, int low, int high, size_t size)
 	if (low < high)
 	{
 		pi = lumuto_partition(array, low, high, size);
-		print_array(array, size);
 		quick_sorter(array, low, pi - 1, size);
 		quick_sorter(array, pi + 1, high, size);
 	}
@@ -51,26 +50,36 @@ void quick_sorter(int *array, int low, int high, size_t size)
 int lumuto_partition(int *array, int low, int high, size_t size)
 {
 	int i, j;
-	int pivot, tmp;
-
-	if (0)
-		printf("%ld", size);
+	int pivot;
 
 	pivot = array[high];
-	i = low - 1;
 
-	for (j = low; j < high; j++)
+	for (i = j = low; j < high; j++)
 	{
 		if (array[j] < pivot) /* swap i and j */
 		{
-			i++;
-			tmp = array[j];
-			array[j] = array[i];
-			array[i] = tmp;
+			swap(array, &array[j], &array[i++], size);
 		}
 	}
 
-	array[high] = array[i + 1];
-	array[i + 1] = pivot;
-	return (i + 1);
+	swap(array, &array[i], &array[high], size);
+	return (i);
+}
+
+/**
+ * swap - swaps two elements prints the array
+ * @array: pointer to the array to be printed
+ * @a: element to be swapped
+ * @b: element to be swapped
+ * @size: size of the array
+ */
+void swap(int *array, int *a, int *b, size_t size)
+{
+	if (*a != *b)
+	{
+		*a = *a + *b;
+		*b = *a - *b;
+		*a = *a	- *b;
+		print_array(array, size);
+	}
 }
