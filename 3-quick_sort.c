@@ -8,41 +8,66 @@
  *
  * Return: Nothing
  */
-/*void quick_sort(int *array, size_t size)
+void quick_sort(int *array, size_t size)
 {
+	quick_sorter(array, 0, size - 1, size);
 
-}*/
+}
 
-size_t lumuto_partition(int *array, size_t size)
+/**
+ * quick_sorter - sorts an array using the quick sort algorithm
+ * @array: is a pointer to the array to be sorted
+ * @low: is the start of the array
+ * @high: is the end of the array
+ * @size: is the size of the array
+ *
+ * Return: Nothing
+ */
+void quick_sorter(int *array, int low, int high, size_t size)
 {
-	size_t i, j;
+	int pi;
+
+	if (low < high)
+	{
+		pi = lumuto_partition(array, low, high, size);
+		print_array(array, size);
+		quick_sorter(array, low, pi - 1, size);
+		quick_sorter(array, pi + 1, high, size);
+	}
+}
+
+/**
+ * lumuto_partition - partitions an array as per the lumuto algorithm
+ * @array: is a pointer to the array to be partitioned
+ * @low: is the start of the array
+ * @high: is the end of the array
+ * @size: is the size of the array
+ *
+ * Return: Nothing
+ */
+int lumuto_partition(int *array, int low, int high, size_t size)
+{
+	int i, j;
 	int pivot, tmp;
 
-	pivot = array[size - 1];
-	i = 0;
-	for (j = i; j < size - 1; j++)
+	if (0)
+		printf("%ld", size);
+
+	pivot = array[high];
+	i = low - 1;
+
+	for (j = low; j < high; j++)
 	{
-		if (array[j] <= pivot) /* swap i and j */
+		if (array[j] < pivot) /* swap i and j */
 		{
+			i++;
 			tmp = array[j];
 			array[j] = array[i];
 			array[i] = tmp;
-			i++;
 		}
 	}
-	array[size - 1] = array[i];
-	array[i] = pivot;
-	return (i);
+
+	array[high] = array[i + 1];
+	array[i + 1] = pivot;
+	return (i + 1);
 }
-
-int main(void)
-{
-	int index;
-	int array[] = {2, 7, 6, 1, 5, 3, 8, 4};
-
-	print_array(array, 8);
-	index = lumuto_partition(array, 8);
-	print_array(array);
-	print("index = %d\n", index);
-}
-
