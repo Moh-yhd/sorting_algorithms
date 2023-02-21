@@ -1,5 +1,4 @@
 #include "sort.h"
-#include <stdio.h>
 
 /**
  * quick_sort - sorts an array using the quick sort algorithm
@@ -10,7 +9,7 @@
  */
 void quick_sort(int *array, size_t size)
 {
-	if (!array || !size)
+	if (!array || size < 2)
 		return;
 
 	quick_sorter(array, 0, size - 1, size);
