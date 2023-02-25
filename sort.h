@@ -28,5 +28,7 @@ void quick_sorter(int *array, int low, int high, size_t size);
 int lumuto_partition(int *array, int low, int high, size_t size);
 void swap(int *array, int *a, int *b, size_t size);
 void shell_sort(int *array, size_t size);
+void cocktail_sort_list(listint_t **list);
+void swapper(listint_t **list, listint_t *a, listint_t *b);
 
 #endif
